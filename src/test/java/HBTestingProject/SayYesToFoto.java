@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-public class SayYesToFirstCommand {
+public class SayYesToFoto {
     public final String DRIVER_PATH = "driver/chromedriver";
     public final String DRIVER_TYPE = "webdriver.chrome.driver";
 
@@ -22,11 +22,12 @@ public class SayYesToFirstCommand {
 
     public final String XPATH_SEARCH_BAR = "//*[@id=\"SearchBoxOld\"]/div/div/div[1]/div[2]/input";
     public final String XPATH_SEARCH_BUTTON = "//*[@id=\"SearchBoxOld\"]/div/div/div[2]";
-    public final String XPATH_SEARCH_PRODUCT = "bilgisayar";
+    public final String XPATH_SEARCH_PRODUCT = "iphone";
     public final String XPATH_SELECTED_PRODUCT = "/html/body/div[3]/main/div[2]/div/div/div/div/div[2]/section/div[1]/div[4]/div/div/div/div/ul/li[1]/div/a/div[2]/h3/div/p/span";
     public final String XPATH_REVIEWS_TAB = "//*[@id=\"productReviewsTab\"]";
     public final String XPATH_REVIEWS_TEXT = "Değerlendirmeler (0)";
     public final String XPATH_FIRST_YES_BUTTON = "//*[@id=\"hermes-voltran-comments\"]/div[3]/div[3]/div/div[1]/div[2]/div[5]/div[1]/div/button[1]";
+    public final String XPATH_SECOND_WAY_FIRT_YES ="//*[@id=\"hermes-voltran-comments\"]/div[3]/div[3]/div/div[1]/div[2]/div[6]/div[1]/div/button[1]";
     public final String XPATH_THANKS_TEXT = "//*[@id=\"hermes-voltran-comments\"]/div[3]/div[3]/div/div[1]/div[2]/div[5]/div[2]/span[2]";
     public final String XPATH_CLOSE_COOKIE = "//img[@src='https://images.hepsiburada.net/assets/sfstatic/Content/images/m-x-close-1x.png']";
     public final String XPATH_LOCATION_ELEMENT = "//*[@id=\"hermes-voltran-comments\"]/div[3]/div[3]/div/div[1]";
@@ -43,7 +44,7 @@ public class SayYesToFirstCommand {
     }
 
     @Test
-    public void testYesToCommand() throws Exception {
+    public void testYesToCommandFoto() throws Exception {
         driver.findElement(By.xpath(XPATH_SEARCH_BAR)).sendKeys(XPATH_SEARCH_PRODUCT);
         driver.findElement(By.xpath(XPATH_SEARCH_BUTTON)).click();
         driver.manage().timeouts().implicitlyWait(5000, TimeUnit.MILLISECONDS);
@@ -57,12 +58,21 @@ public class SayYesToFirstCommand {
 
             ((Locatable) driver.findElement(By.xpath(XPATH_LOCATION_ELEMENT))).getCoordinates().inViewPort();
 
-            driver.findElement(By.xpath(XPATH_CLOSE_COOKIE)).click();
+            try{
+                driver.findElement(By.xpath(XPATH_CLOSE_COOKIE)).click();
 
-            System.out.println(driver.findElement(By.xpath(XPATH_FIRST_YES_BUTTON)).getText());
+                System.out.println(driver.findElement(By.xpath(XPATH_FIRST_YES_BUTTON)).getText());
 
-            driver.findElement(By.xpath(XPATH_FIRST_YES_BUTTON)).click();
-            System.out.println(driver.findElement(By.xpath(XPATH_THANKS_TEXT)).getText());
+                driver.findElement(By.xpath(XPATH_FIRST_YES_BUTTON)).click();
+                System.out.println(driver.findElement(By.xpath(XPATH_THANKS_TEXT)).getText());
+
+            }catch (Exception e){
+                System.out.println(driver.findElement(By.xpath(XPATH_SECOND_WAY_FIRT_YES)).getText());
+
+                driver.findElement(By.xpath(XPATH_SECOND_WAY_FIRT_YES)).click();
+                Thread.sleep(2000);
+            }
+
         }
     }
 
